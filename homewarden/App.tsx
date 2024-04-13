@@ -1,22 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar, View, useColorScheme } from 'react-native';
-
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import { CurrentScreen } from './types/ScreensTypes';
+// contexts
+import { AuthorizedUsersContextProvider } from './contexts/AuthorizedUsersContext';
 
+// components
 import NavigationBar from './components/NavigationBar';
 
+// screens
 import HomeScreen from './screens/HomeScreen';
 import DailyRecordsScreen from './screens/DailyRecordsScreen';
 import AuthorizedUsersScreen from './screens/AuthorizedUsersScreen';
+
+// types
+import { CurrentScreen } from './types/ScreensTypes';
 
 export default function App(): React.JSX.Element {
     const isDarkMode = useColorScheme() === 'dark';
@@ -48,7 +46,7 @@ export default function App(): React.JSX.Element {
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
-            {currentScreenComponent}
+            <AuthorizedUsersContextProvider>{currentScreenComponent}</AuthorizedUsersContextProvider>
             <View>
                 <NavigationBar setCurrentScreen={setCurrentScreen} />
             </View>
