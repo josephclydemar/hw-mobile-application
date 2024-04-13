@@ -5,32 +5,53 @@
  * @format
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, StatusBar, View, useColorScheme } from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+import { CurrentScreen } from './types/ScreensTypes';
 
+import NavigationBar from './components/NavigationBar';
+
+import HomeScreen from './screens/HomeScreen';
+import DailyRecordsScreen from './screens/DailyRecordsScreen';
+import AuthorizedUsersScreen from './screens/AuthorizedUsersScreen';
 
 export default function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+    const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+    const backgroundStyle = {
+        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-    </SafeAreaView>
-  );
+    const [currentScreen, setCurrentScreen] = useState<CurrentScreen>('home-screen');
+    const [currentScreenComponent, setCurrentScreenComponent] = useState<JSX.Element>(<HomeScreen />);
+
+    useEffect(
+        function () {
+            switch (currentScreen) {
+                case 'home-screen':
+                    setCurrentScreenComponent(<HomeScreen />);
+                    break;
+                case 'daily-records-screen':
+                    setCurrentScreenComponent(<DailyRecordsScreen />);
+                    break;
+                case 'authorized-users-screen':
+                    setCurrentScreenComponent(<AuthorizedUsersScreen />);
+                    break;
+            }
+        },
+        [currentScreen],
+    );
+
+    return (
+        <SafeAreaView style={backgroundStyle}>
+            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
+            {currentScreenComponent}
+            <View>
+                <NavigationBar setCurrentScreen={setCurrentScreen} />
+            </View>
+        </SafeAreaView>
+    );
 }
