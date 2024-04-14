@@ -30,14 +30,7 @@ export default function AuthorizedUsersScreen() {
                         }}
                         data={authorizedUsers}
                         renderItem={function ({ item }) {
-                            return (
-                                <AuthorizedUserItem
-                                    id={item.id}
-                                    name={item.name}
-                                    time_registered={item.time_registered}
-                                    date_registered={item.date_registered}
-                                />
-                            );
+                            return <AuthorizedUserItem id={item.id} name={item.name} createdAt={item.createdAt} />;
                         }}
                     />
                 </View>

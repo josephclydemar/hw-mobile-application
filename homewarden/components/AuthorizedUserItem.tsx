@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 import { AuthorizedUser } from '../types/UsersTypes';
 
-export default function AuthorizedUserItem({ id, name, time_registered, date_registered }: AuthorizedUser) {
+export default function AuthorizedUserItem({ id, name, createdAt }: AuthorizedUser) {
     return (
         <View
             style={{
@@ -27,9 +27,9 @@ export default function AuthorizedUserItem({ id, name, time_registered, date_reg
                 style={{
                     marginLeft: 15,
                 }}>
+                <Text>ID: {id}</Text>
                 <Text>Name: {name}</Text>
-                <Text>Reg. Time: {time_registered}</Text>
-                <Text>Reg. Date: {date_registered}</Text>
+                <Text>Created At: {createdAt}</Text>
             </View>
         </View>
     );
