@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 
 import { Detection } from '../types/DetectionsTypes';
 
-export default function DetectionItem({ id, time, day }: Detection) {
+export default function DetectionItem({ id, recordedVideo, createdAt }: Detection) {
     return (
         <View
             style={{
@@ -11,8 +11,15 @@ export default function DetectionItem({ id, time, day }: Detection) {
                 borderRadius: 10,
                 backgroundColor: '#999',
             }}>
-            <Text style={{ color: '#000' }}>Time: {time}</Text>
-            <Text style={{ color: '#000' }}>Day: {day}</Text>
+            <View
+                style={{
+                    height: 50,
+                    backgroundColor: '#aa0',
+                }}>
+                <Text style={{ color: '#fff' }}>{recordedVideo}</Text>
+            </View>
+            <Text style={{ color: '#000' }}>ID: {id}</Text>
+            <Text style={{ color: '#000' }}>Created At: {createdAt}</Text>
         </View>
     );
 }
