@@ -11,11 +11,7 @@ import { AuthorizedUser, AuthorizedUserContextType } from '../types/UsersTypes';
 export default function AuthorizedUsersScreen() {
     const { authorizedUsers } = useContext<AuthorizedUserContextType>(AuthorizedUsersContext as Context<AuthorizedUserContextType>);
     return (
-        <View
-            style={{
-                height: '89.3%',
-                backgroundColor: '#fff',
-            }}>
+        <>
             <Section title="Authorized Users Screen">
                 <View
                     style={{
@@ -35,6 +31,6 @@ export default function AuthorizedUsersScreen() {
                     />
                 </View>
             </Section>
-        </View>
+        </>
     );
 }
