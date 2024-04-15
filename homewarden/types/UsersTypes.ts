@@ -6,18 +6,17 @@ enum EnumAuthorizedUsersManipulate {
 type AuthorizedUser = {
     id: string;
     name: string;
-    time_registered: string;
-    date_registered: string;
+    createdAt: string;
 };
 
 type AuthorizedUsersManipulateAction = {
-    userId: string;
+    id: string;
     actionType: EnumAuthorizedUsersManipulate;
 };
 
 type AuthorizedUserContextType = {
     authorizedUsers: AuthorizedUser[];
-    authorizedUsersDispatch: React.Dispatch<AuthorizedUsersManipulateAction>;
+    setAuthorizedUsers: React.Dispatch<React.SetStateAction<AuthorizedUser[]>>;
 };
 
 export { EnumAuthorizedUsersManipulate };
