@@ -1,50 +1,17 @@
-import { useState } from 'react';
+import { Context, useContext } from 'react';
 import { View, FlatList, Text } from 'react-native';
+
+import CurrentDayDetectionsContext from '../contexts/CurrentDayDetectionsContext';
 
 import Section from '../components/Section';
 import DetectionItem from '../components/DetectionItem';
 
-import { Detection } from '../types/DetectionsTypes';
+import { CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
 
 export default function HomeScreen() {
-    const [detections, setDetections] = useState<Detection[]>([
-        {
-            id: '1',
-            time: '12:34PM',
-            day: 'MON',
-        },
-        {
-            id: '2',
-            time: '03:34AM',
-            day: 'FRI',
-        },
-        {
-            id: '3',
-            time: '05:12PM',
-            day: 'TUE',
-        },
-        {
-            id: '4',
-            time: '10:55AM',
-            day: 'WED',
-        },
-        {
-            id: '5',
-            time: '12:16AM',
-            day: 'TUE',
-        },
-        {
-            id: '6',
-            time: '08:23PM',
-            day: 'THU',
-        },
-    ]);
+    const { currentDayDetections } = useContext<CurrentDayDetectionsContextType>(CurrentDayDetectionsContext as Context<CurrentDayDetectionsContextType>);
     return (
-        <View
-            style={{
-                height: '89.3%',
-                backgroundColor: '#fff',
-            }}>
+        <>
             <Section title="Live Video">
                 <View
                     style={{
@@ -63,12 +30,12 @@ export default function HomeScreen() {
                     keyExtractor={function (item) {
                         return item.id;
                     }}
-                    data={detections}
+                    data={currentDayDetections}
                     renderItem={function ({ item }) {
-                        return <DetectionItem id={item.id} time={item.time} day={item.day} />;
+                        return <DetectionItem id={item.id} recordedVideo={item.recordedVideo} createdAt={item.createdAt} />;
                     }}
                 />
             </Section>
-        </View>
+        </>
     );
 }
