@@ -3,14 +3,17 @@ import { SafeAreaView, StatusBar, View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 // contexts
+import { CurrentDayDetectionsContextProvider } from './contexts/CurrentDayDetectionsContext';
+import { DayRecordsContextProvider } from './contexts/DayRecordsContext';
 import { AuthorizedUsersContextProvider } from './contexts/AuthorizedUsersContext';
 
 // components
 import NavigationBar from './components/NavigationBar';
+import ContextsWrapper from './components/ContextsWrapper';
 
 // screens
 import HomeScreen from './screens/HomeScreen';
-import DailyRecordsScreen from './screens/DailyRecordsScreen';
+import DayRecordsScreen from './screens/DayRecordsScreen';
 import AuthorizedUsersScreen from './screens/AuthorizedUsersScreen';
 
 // types
@@ -32,8 +35,8 @@ export default function App(): React.JSX.Element {
                 case 'home-screen':
                     setCurrentScreenComponent(<HomeScreen />);
                     break;
-                case 'daily-records-screen':
-                    setCurrentScreenComponent(<DailyRecordsScreen />);
+                case 'day-records-screen':
+                    setCurrentScreenComponent(<DayRecordsScreen />);
                     break;
                 case 'authorized-users-screen':
                     setCurrentScreenComponent(<AuthorizedUsersScreen />);
@@ -46,7 +49,13 @@ export default function App(): React.JSX.Element {
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
-            <AuthorizedUsersContextProvider>{currentScreenComponent}</AuthorizedUsersContextProvider>
+            <CurrentDayDetectionsContextProvider>
+                <DayRecordsContextProvider>
+                    <AuthorizedUsersContextProvider>
+                        <ContextsWrapper>{currentScreenComponent}</ContextsWrapper>
+                    </AuthorizedUsersContextProvider>
+                </DayRecordsContextProvider>
+            </CurrentDayDetectionsContextProvider>
             <View>
                 <NavigationBar setCurrentScreen={setCurrentScreen} />
             </View>
