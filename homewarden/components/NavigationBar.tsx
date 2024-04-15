@@ -36,7 +36,7 @@ export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) 
                     // Alert.alert('You pressed Folder Icon', 'Hello, this is the Folder icon...', [
                     // { text: 'Close Haha..', onPress: () => console.log('Folder Icon Alert Closed..') },
                     // ]);
-                    setCurrentScreen('daily-records-screen');
+                    setCurrentScreen('day-records-screen');
                     console.log('Folder Icon');
                 }}>
                 <EntypoIcon name="folder" size={50} color="#fff" />
