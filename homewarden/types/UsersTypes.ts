@@ -5,6 +5,7 @@ enum EnumAuthorizedUsersManipulate {
 
 type AuthorizedUser = {
     id: string;
+    profileImage: string | null | undefined;
     name: string;
     createdAt: string;
 };
