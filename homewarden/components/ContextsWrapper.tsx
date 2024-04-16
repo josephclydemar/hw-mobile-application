@@ -31,6 +31,7 @@ type DayRecordDB = {
 
 type AuthorizedUserDB = {
     _id: string;
+    profileImage: string | null | undefined;
     name: string;
     createdAt: string;
     updatedAt: string;
@@ -96,7 +97,7 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
             axios.get('http://192.168.1.2:8500/api/v1/authorized_users').then(function ({ data }): void {
                 setAuthorizedUsers(() =>
                     data.map(function (item: AuthorizedUserDB): AuthorizedUser {
-                        return { id: item._id, name: item.name, createdAt: item.createdAt };
+                        return { id: item._id, profileImage: item.profileImage, name: item.name, createdAt: item.createdAt };
                     }),
                 );
             });
