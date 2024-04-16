@@ -1,13 +1,14 @@
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
 import { AuthorizedUser } from '../types/UsersTypes';
 
-export default function AuthorizedUserItem({ id, name, createdAt }: AuthorizedUser) {
+export default function AuthorizedUserItem({ id, profileImage, name, createdAt }: AuthorizedUser) {
+    // console.log(profileImage);
     return (
         <View
             style={{
-                backgroundColor: '#999',
+                backgroundColor: '#ccc',
                 margin: 5,
                 padding: 10,
                 borderRadius: 10,
@@ -15,20 +16,34 @@ export default function AuthorizedUserItem({ id, name, createdAt }: AuthorizedUs
             }}>
             <View
                 style={{
-                    width: 50,
-                    height: 50,
                     paddingLeft: 2,
                     // borderRadius: 35,
                     // backgroundColor: '#fff',
                 }}>
-                <FontAwesome5Icon name="user" size={50} color="#000" />
+                {profileImage === null || profileImage === undefined ? (
+                    <FontAwesome5Icon name="user" size={50} color="#000" />
+                ) : (
+                    <Image
+                        key={id}
+                        style={{
+                            width: 60,
+                            height: 60,
+                            borderRadius: 30,
+                            resizeMode: 'contain',
+                        }}
+                        source={{
+                            uri: `data:image/jpeg;base64,${profileImage}`,
+                        }}
+                    />
+                )}
             </View>
             <View
                 style={{
                     marginLeft: 15,
                 }}>
-                <Text>ID: {id}</Text>
-                <Text>Name: {name}</Text>
+                {/* <Text>{profileImage}</Text> */}
+                <Text style={{ fontSize: 16, color: '#000', fontWeight: 'bold' }}>{name}</Text>
+                {/* <Text style={{ fontSize: 14 }}>ID: {id}</Text> */}
                 <Text>Created At: {createdAt}</Text>
             </View>
         </View>
