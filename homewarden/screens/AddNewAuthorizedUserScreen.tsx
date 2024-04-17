@@ -1,3 +1,9 @@
+import { View, Text } from 'react-native';
+
 export default function AddNewAuthorizedUserScreen() {
-    return <></>;
+    return (
+        <View>
+            <Text></Text>
+        </View>
+    );
 }
