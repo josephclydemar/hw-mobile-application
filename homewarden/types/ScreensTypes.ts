@@ -4,6 +4,11 @@ type CurrentScreen =
     | 'authorized-users-screen'
     | 'add-new-authorized-users-screen'
     | 'selected-authorized-user-screen'
-    | 'selected-day-details-screen';
+    | 'selected-day-records-screen';
 
-export type { CurrentScreen };
+type CurrentScreenContextType = {
+    currentScreen: CurrentScreen;
+    setCurrentScreen: React.Dispatch<React.SetStateAction<CurrentScreen>>;
+};
+
+export type { CurrentScreen, CurrentScreenContextType };

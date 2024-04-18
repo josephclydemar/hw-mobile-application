@@ -1,10 +1,14 @@
+import { Context, useContext } from 'react';
+import { View, Text, Image, Button } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { View, Text, Image } from 'react-native';
+
+import CurrentScreenContext from '../contexts/CurrentScreenContext';
 
 import { AuthorizedUser } from '../types/UsersTypes';
+import { CurrentScreenContextType } from '../types/ScreensTypes';
 
 export default function AuthorizedUserItem({ id, profileImage, name, createdAt }: AuthorizedUser) {
-    // console.log(profileImage);
+    const { setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
     return (
         <View
             style={{
@@ -45,6 +49,18 @@ export default function AuthorizedUserItem({ id, profileImage, name, createdAt }
                 <Text style={{ fontSize: 16, color: '#000', fontWeight: 'bold' }}>{name}</Text>
                 {/* <Text style={{ fontSize: 14 }}>ID: {id}</Text> */}
                 <Text>Created At: {createdAt}</Text>
+                <View
+                    style={{
+                        marginTop: 10,
+                    }}>
+                    <Button
+                        title="See Info"
+                        onPress={function (): void {
+                            // console.log('Id', id);
+                            setCurrentScreen('selected-authorized-user-screen');
+                        }}
+                    />
+                </View>
             </View>
         </View>
     );
