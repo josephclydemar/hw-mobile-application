@@ -1,6 +1,5 @@
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 import { CurrentScreen } from '../types/ScreensTypes';
 
@@ -29,7 +28,7 @@ export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) 
                     setCurrentScreen('home-screen');
                     console.log('Home Icon');
                 }}>
-                <EntypoIcon name="home" size={50} color="#fff" />
+                <IoniconsIcon name="home" size={50} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={function (): void {
@@ -39,7 +38,7 @@ export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) 
                     setCurrentScreen('day-records-screen');
                     console.log('Folder Icon');
                 }}>
-                <EntypoIcon name="folder" size={50} color="#fff" />
+                <IoniconsIcon name="file-tray-full-sharp" size={50} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={function (): void {
@@ -49,7 +48,17 @@ export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) 
                     setCurrentScreen('authorized-users-screen');
                     console.log('Users Icon');
                 }}>
-                <FontAwesome5Icon name="users" size={50} color="#fff" />
+                <IoniconsIcon name="people-sharp" size={50} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={function (): void {
+                    // Alert.alert('You pressed Users Icon', 'Hello, this is the Users icon...', [
+                    // { text: 'Close Haha..', onPress: () => console.log('Users Icon Alert Closed..') },
+                    // ]);
+                    setCurrentScreen('add-new-authorized-users-screen');
+                    console.log('Add User Icon');
+                }}>
+                <IoniconsIcon name="person-add-sharp" size={50} color="#fff" />
             </TouchableOpacity>
         </View>
     );
