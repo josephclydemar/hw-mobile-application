@@ -18,6 +18,7 @@ import DayRecordsScreen from './screens/DayRecordsScreen';
 import AuthorizedUsersScreen from './screens/AuthorizedUsersScreen';
 import SelectedAuthorizedUserScreen from './screens/SelectedAuthorizedUserScreen';
 import SelectedDayRecordsScreen from './screens/SelectedDayRecordsScreen';
+import AddNewAuthorizedUserScreen from './screens/AddNewAuthorizedUserScreen';
 
 // types
 import { CurrentScreenContextType } from './types/ScreensTypes';
@@ -43,6 +44,8 @@ export default function Root() {
                 case 'selected-day-records-screen':
                     setCurrentScreenComponent(<SelectedDayRecordsScreen />);
                     break;
+                case 'add-new-authorized-users-screen':
+                    setCurrentScreenComponent(<AddNewAuthorizedUserScreen />);
             }
         },
         [currentScreen],

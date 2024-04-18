@@ -1,5 +1,5 @@
 import { Context, useEffect, useContext, useState, PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 
 import axios from 'axios';
 import * as io from 'socket.io-client';
@@ -64,6 +64,10 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
             // });
             socket.on('added_new_authorized_user', function (): void {
                 setAddedNewAuthorizedUser(prev => !prev);
+            });
+
+            socket.on('from_server_notif', function (data: any): void {
+                Alert.alert('Detection Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
             });
         }
     }, []);
