@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { CurrentDayDetectionsContextProvider } from './contexts/CurrentDayDetectionsContext';
 import { DayRecordsContextProvider } from './contexts/DayRecordsContext';
 import { AuthorizedUsersContextProvider } from './contexts/AuthorizedUsersContext';
+import { ToAddNewAuthorizedUserContextProvider } from './contexts/ToAddNewAuthorizedUserContext';
 
 import CurrentScreenContext from './contexts/CurrentScreenContext';
 
@@ -55,7 +56,9 @@ export default function Root() {
             <CurrentDayDetectionsContextProvider>
                 <DayRecordsContextProvider>
                     <AuthorizedUsersContextProvider>
-                        <ContextsWrapper>{currentScreenComponent}</ContextsWrapper>
+                        <ToAddNewAuthorizedUserContextProvider>
+                            <ContextsWrapper>{currentScreenComponent}</ContextsWrapper>
+                        </ToAddNewAuthorizedUserContextProvider>
                     </AuthorizedUsersContextProvider>
                 </DayRecordsContextProvider>
             </CurrentDayDetectionsContextProvider>

@@ -55,6 +55,7 @@ export default function AuthorizedUserItem({ id, profileImage, name, createdAt }
                     }}>
                     <Button
                         title="See Info"
+                        color="#505"
                         onPress={function (): void {
                             // console.log('Id', id);
                             setCurrentScreen('selected-authorized-user-screen');

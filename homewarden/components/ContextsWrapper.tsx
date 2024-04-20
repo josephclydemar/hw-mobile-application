@@ -8,12 +8,13 @@ import { Socket } from 'socket.io-client';
 // types
 import { Detection, CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
 import { DayRecord, DayRecordContextType } from '../types/DayRecordsTypes';
-import { AuthorizedUser, AuthorizedUserContextType } from '../types/UsersTypes';
+import { AuthorizedUser, AuthorizedUserContextType, ToAddNewAuthorizedUserContextType } from '../types/UsersTypes';
 
 // contexts
 import CurrentDayDetectionsContext from '../contexts/CurrentDayDetectionsContext';
 import DayRecordsContext from '../contexts/DayRecordsContext';
 import AuthorizedUsersContext from '../contexts/AuthorizedUsersContext';
+import ToAddNewAuthorizedUserContext from '../contexts/ToAddNewAuthorizedUserContext';
 
 type DetectionDB = {
     _id: string;
@@ -49,19 +50,23 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
     const { setCurrentDayDetections } = useContext<CurrentDayDetectionsContextType>(CurrentDayDetectionsContext as Context<CurrentDayDetectionsContextType>);
     const { setDayRecords } = useContext<DayRecordContextType>(DayRecordsContext as Context<DayRecordContextType>);
     const { setAuthorizedUsers } = useContext<AuthorizedUserContextType>(AuthorizedUsersContext as Context<AuthorizedUserContextType>);
+    const { inputName, confirmAdd, setConfirmAdd } = useContext<ToAddNewAuthorizedUserContextType>(
+        ToAddNewAuthorizedUserContext as Context<ToAddNewAuthorizedUserContextType>,
+    );
 
     const [addedNewCurrentDayDetection, setAddedNewCurrentDayDetection] = useState<boolean>(false);
     const [addedNewDayRecord, setAddedNewDayRecord] = useState<boolean>(false);
     const [addedNewAuthorizedUser, setAddedNewAuthorizedUser] = useState<boolean>(false);
 
+    // For socket event listeners
     useEffect(function (): void {
         if (socket !== null) {
             socket.on('added_new_current_day_detection', function (): void {
                 setAddedNewCurrentDayDetection(prev => !prev);
             });
-            // socket.on('added_new_day_record', function (): void {
-            //     setAddedNewDayRecord(prev => !prev);
-            // });
+            socket.on('added_new_day_record', function (): void {
+                setAddedNewDayRecord(prev => !prev);
+            });
             socket.on('added_new_authorized_user', function (): void {
                 setAddedNewAuthorizedUser(prev => !prev);
             });
@@ -71,6 +76,17 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
             });
         }
     }, []);
+
+    useEffect(
+        function (): void {
+            if (confirmAdd === true && socket !== null) {
+                socket.emit('from_mobile_to_add_new_authorized_user', { name: inputName });
+                setConfirmAdd(() => false);
+                console.log('Submitted New User Name....');
+            }
+        },
+        [confirmAdd],
+    );
 
     useEffect(
         function (): void {
@@ -84,18 +100,18 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
         },
         [addedNewCurrentDayDetection],
     );
-    // useEffect(
-    //     function (): void {
-    //         axios.get('http://192.168.1.2:8500/api/v1/day_records').then(function ({ data }): void {
-    //             setDayRecords(() =>
-    //                 data.map(function (item: DayRecordDB): DayRecord {
-    //                     return { id: item._id, detections: item.detections, createdAt: item.createdAt };
-    //                 }),
-    //             );
-    //         });
-    //     },
-    //     [addedNewDayRecord],
-    // );
+    useEffect(
+        function (): void {
+            axios.get('http://192.168.1.2:8500/api/v1/day_records').then(function ({ data }): void {
+                setDayRecords(() =>
+                    data.map(function (item: DayRecordDB): DayRecord {
+                        return { id: item._id, detections: item.detections, createdAt: item.createdAt };
+                    }),
+                );
+            });
+        },
+        [addedNewDayRecord],
+    );
     useEffect(
         function (): void {
             axios.get('http://192.168.1.2:8500/api/v1/authorized_users').then(function ({ data }): void {

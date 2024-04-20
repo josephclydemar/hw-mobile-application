@@ -1,3 +1,5 @@
+import React from 'react';
+
 enum EnumAuthorizedUsersManipulate {
     AddNewAuthorizedUser,
     RemoveAuthorizedUser,
@@ -20,5 +22,12 @@ type AuthorizedUserContextType = {
     setAuthorizedUsers: React.Dispatch<React.SetStateAction<AuthorizedUser[]>>;
 };
 
+type ToAddNewAuthorizedUserContextType = {
+    inputName: string;
+    setInputName: React.Dispatch<React.SetStateAction<string>>;
+    confirmAdd: boolean;
+    setConfirmAdd: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export { EnumAuthorizedUsersManipulate };
-export type { AuthorizedUser, AuthorizedUsersManipulateAction, AuthorizedUserContextType };
+export type { AuthorizedUser, AuthorizedUsersManipulateAction, AuthorizedUserContextType, ToAddNewAuthorizedUserContextType };
