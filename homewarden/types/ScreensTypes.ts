@@ -4,7 +4,8 @@ type CurrentScreen =
     | 'authorized-users-screen'
     | 'add-new-authorized-users-screen'
     | 'selected-authorized-user-screen'
-    | 'selected-day-records-screen';
+    | 'selected-day-records-screen'
+    | 'selected-detection-screen';
 
 type CurrentScreenContextType = {
     currentScreen: CurrentScreen;

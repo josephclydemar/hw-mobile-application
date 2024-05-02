@@ -6,6 +6,7 @@ import { CurrentDayDetectionsContextProvider } from './contexts/CurrentDayDetect
 import { DayRecordsContextProvider } from './contexts/DayRecordsContext';
 import { AuthorizedUsersContextProvider } from './contexts/AuthorizedUsersContext';
 import { ToAddNewAuthorizedUserContextProvider } from './contexts/ToAddNewAuthorizedUserContext';
+import { LiveVideoFrameContextProvider } from './contexts/LiveVideoFrameContext';
 
 import CurrentScreenContext from './contexts/CurrentScreenContext';
 
@@ -20,6 +21,7 @@ import AuthorizedUsersScreen from './screens/AuthorizedUsersScreen';
 import SelectedAuthorizedUserScreen from './screens/SelectedAuthorizedUserScreen';
 import SelectedDayRecordsScreen from './screens/SelectedDayRecordsScreen';
 import AddNewAuthorizedUserScreen from './screens/AddNewAuthorizedUserScreen';
+import SelectedDetectionScreen from './screens/SelectedDetectionScreen';
 
 // types
 import { CurrentScreenContextType } from './types/ScreensTypes';
@@ -47,6 +49,10 @@ export default function Root() {
                     break;
                 case 'add-new-authorized-users-screen':
                     setCurrentScreenComponent(<AddNewAuthorizedUserScreen />);
+                    break;
+                case 'selected-detection-screen':
+                    setCurrentScreenComponent(<SelectedDetectionScreen />);
+                    break;
             }
         },
         [currentScreen],
@@ -57,7 +63,9 @@ export default function Root() {
                 <DayRecordsContextProvider>
                     <AuthorizedUsersContextProvider>
                         <ToAddNewAuthorizedUserContextProvider>
+                            <LiveVideoFrameContextProvider>
                             <ContextsWrapper>{currentScreenComponent}</ContextsWrapper>
+                            </LiveVideoFrameContextProvider>
                         </ToAddNewAuthorizedUserContextProvider>
                     </AuthorizedUsersContextProvider>
                 </DayRecordsContextProvider>

@@ -1,18 +1,19 @@
-import { useContext, Context, useState, useEffect } from 'react';
+import { useState, useEffect, useContext, Context } from 'react';
 import { View, Text, TextInput, Button, Image } from 'react-native';
 
-// types
-import { ToAddNewAuthorizedUserContextType } from '../types/UsersTypes';
 
 // contexts
+import CurrentScreenContext from '../contexts/CurrentScreenContext';
 import ToAddNewAuthorizedUserContext from '../contexts/ToAddNewAuthorizedUserContext';
 import AuthorizedUsersContext from '../contexts/AuthorizedUsersContext';
 
-import { AuthorizedUser, AuthorizedUserContextType } from '../types/UsersTypes';
+import { AuthorizedUser, AuthorizedUserContextType, ToAddNewAuthorizedUserContextType } from '../types/UsersTypes';
+import { CurrentScreenContextType } from '../types/ScreensTypes';
 
 import Section from '../components/Section';
 
 export default function AddNewAuthorizedUserScreen() {
+    const { setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
     const { setInputName, setConfirmAdd } = useContext<ToAddNewAuthorizedUserContextType>(
         ToAddNewAuthorizedUserContext as Context<ToAddNewAuthorizedUserContextType>,
     );
@@ -53,6 +54,7 @@ export default function AddNewAuthorizedUserScreen() {
                         color="#505"
                         onPress={function (): void {
                             setConfirmAdd(() => true);
+                            setCurrentScreen(() => 'authorized-users-screen');
                         }}
                     />
                 </View>
@@ -76,7 +78,11 @@ export default function AddNewAuthorizedUserScreen() {
                         />
                     </View>
                     <View>
-                        <Text>{recentlyAddedAuthorizedUser?.name}</Text>
+                        <Text style={{
+                            color: '#000',
+                            fontSize: 30,
+                            fontWeight: 'bold',
+                        }}>{recentlyAddedAuthorizedUser?.name}</Text>
                     </View>
                 </View>
             </Section>
