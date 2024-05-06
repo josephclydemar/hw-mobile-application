@@ -3,18 +3,15 @@ import { View, FlatList } from 'react-native';
 import Video, { VideoRef } from 'react-native-video';
 
 import CurrentDayDetectionsContext from '../contexts/CurrentDayDetectionsContext';
-import LiveVideoFrameContext from '../contexts/LiveVideoFrameContext';
 
 import Section from '../components/Section';
 import DetectionItem from '../components/DetectionItem';
 
 import { CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
-import { LiveVideoFrameContextType } from '../types/LiveVideoTypes';
 
 export default function HomeScreen() {
     const videoRef = useRef<VideoRef>(null);
     const { currentDayDetections } = useContext<CurrentDayDetectionsContextType>(CurrentDayDetectionsContext as Context<CurrentDayDetectionsContextType>);
-    const { liveVideoFrame } = useContext<LiveVideoFrameContextType>(LiveVideoFrameContext as Context<LiveVideoFrameContextType>);
 
     return (
         <>
@@ -25,20 +22,6 @@ export default function HomeScreen() {
                     paddingBottom: 10,
                     // borderRadius: 10
                 }}>
-                        <Video 
-                            ref={videoRef}
-                            source={{
-                                uri: 'http://192.168.1.2:8500/api/v1/detections/1714299482085',
-                                headers: {
-                                    Range: 'bytes=0-',
-                                }
-                            }}
-                            style={{
-                                height: 240,
-                                width: 345,
-                            }}
-                            controls={true}
-                            />
                 </View>
             </Section>
             <Section title="Detections">
