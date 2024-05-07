@@ -1,6 +1,5 @@
-import { Context, useContext, useRef } from 'react';
+import { Context, useContext } from 'react';
 import { View, FlatList } from 'react-native';
-import Video, { VideoRef } from 'react-native-video';
 
 import CurrentDayDetectionsContext from '../contexts/CurrentDayDetectionsContext';
 
@@ -10,7 +9,6 @@ import DetectionItem from '../components/DetectionItem';
 import { CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
 
 export default function HomeScreen() {
-    const videoRef = useRef<VideoRef>(null);
     const { currentDayDetections } = useContext<CurrentDayDetectionsContextType>(CurrentDayDetectionsContext as Context<CurrentDayDetectionsContextType>);
 
     return (
