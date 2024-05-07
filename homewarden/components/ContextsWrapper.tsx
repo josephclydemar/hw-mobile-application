@@ -9,14 +9,12 @@ import { Socket } from 'socket.io-client';
 import { Detection, CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
 import { DayRecord, DayRecordContextType } from '../types/DayRecordsTypes';
 import { AuthorizedUser, AuthorizedUserContextType, ToAddNewAuthorizedUserContextType } from '../types/UsersTypes';
-import { LiveVideoFrameContextType } from '../types/LiveVideoTypes';
 
 // contexts
 import CurrentDayDetectionsContext from '../contexts/CurrentDayDetectionsContext';
 import DayRecordsContext from '../contexts/DayRecordsContext';
 import AuthorizedUsersContext from '../contexts/AuthorizedUsersContext';
 import ToAddNewAuthorizedUserContext from '../contexts/ToAddNewAuthorizedUserContext';
-import LiveVideoFrameContext from '../contexts/LiveVideoFrameContext';
 
 type DetectionDB = {
     _id: string;
@@ -49,7 +47,6 @@ try {
 }
 
 export default function ContextsWrapper({ children }: PropsWithChildren) {
-    const { setLiveVideoFrame } = useContext<LiveVideoFrameContextType>(LiveVideoFrameContext as Context<LiveVideoFrameContextType>);
     const { setCurrentDayDetections } = useContext<CurrentDayDetectionsContextType>(CurrentDayDetectionsContext as Context<CurrentDayDetectionsContextType>);
     const { setDayRecords } = useContext<DayRecordContextType>(DayRecordsContext as Context<DayRecordContextType>);
     const { setAuthorizedUsers } = useContext<AuthorizedUserContextType>(AuthorizedUsersContext as Context<AuthorizedUserContextType>);
@@ -72,9 +69,6 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
             });
             socket.on('added_new_authorized_user', function (): void {
                 setAddedNewAuthorizedUser(prev => !prev);
-            });
-            socket.on('from_server_live_video_frame', function (data: string): void {
-                setLiveVideoFrame(() => data);
             });
 
             socket.on('from_server_notif', function (data: any): void {
