@@ -5,6 +5,9 @@ import axios from 'axios';
 import * as io from 'socket.io-client';
 import { Socket } from 'socket.io-client';
 
+// constant variables
+import { SERVER_HOSTNAME, WEBSOCKET_INBOUND_EVENTS, WEBSOCKET_OUTBOUND_EVENTS, HTTP_REST_ENDPOINTS } from '../common/Constants';
+
 // types
 import { Detection, CurrentDayDetectionsContextType } from '../types/DetectionsTypes';
 import { DayRecord, DayRecordContextType } from '../types/DayRecordsTypes';
@@ -39,9 +42,10 @@ type AuthorizedUserDB = {
     __v: number;
 };
 
+
 let socket: Socket | null = null;
 try {
-    socket = io.connect('http://192.168.1.2:8500');
+    socket = io.connect(SERVER_HOSTNAME);
 } catch (err) {
     socket = null;
 }
@@ -61,17 +65,17 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
     // For socket event listeners
     useEffect(function (): void {
         if (socket !== null) {
-            socket.on('added_new_current_day_detection', function (): void {
+            socket.on(WEBSOCKET_INBOUND_EVENTS.AddedNewCurrentDayDetection, function (): void {
                 setAddedNewCurrentDayDetection(prev => !prev);
             });
-            socket.on('added_new_day_record', function (): void {
+            socket.on(WEBSOCKET_INBOUND_EVENTS.AddedNewDayRecord, function (): void {
                 setAddedNewDayRecord(prev => !prev);
             });
-            socket.on('added_new_authorized_user', function (): void {
+            socket.on(WEBSOCKET_INBOUND_EVENTS.AddedNewAuthorizedUser, function (): void {
                 setAddedNewAuthorizedUser(prev => !prev);
             });
 
-            socket.on('from_server_notif', function (data: any): void {
+            socket.on(WEBSOCKET_INBOUND_EVENTS.FromServerNotif, function (data: any): void {
                 Alert.alert('Detection Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
             });
         }
@@ -80,7 +84,7 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
     useEffect(
         function (): void {
             if (confirmAdd === true && socket !== null) {
-                socket.emit('from_mobile_to_add_new_authorized_user', { name: inputName });
+                socket.emit(WEBSOCKET_OUTBOUND_EVENTS.FromMobileToAddNewAuthorizedUser, { name: inputName });
                 setConfirmAdd(() => false);
                 console.log('Submitted New User Name....');
             }
@@ -90,7 +94,7 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
 
     useEffect(
         function (): void {
-            axios.get('http://192.168.1.2:8500/api/v1/detections').then(function ({ data }): void {
+            axios.get(HTTP_REST_ENDPOINTS.Detections).then(function ({ data }): void {
                 setCurrentDayDetections(() =>
                     data.map(function (item: DetectionDB): Detection {
                         return { id: item._id, recordedVideo: item.recordedVideo, createdAt: item.createdAt };
@@ -102,7 +106,7 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
     );
     useEffect(
         function (): void {
-            axios.get('http://192.168.1.2:8500/api/v1/day_records').then(function ({ data }): void {
+            axios.get(HTTP_REST_ENDPOINTS.DayRecords).then(function ({ data }): void {
                 setDayRecords(() =>
                     data.map(function (item: DayRecordDB): DayRecord {
                         return { id: item._id, detections: item.detections, createdAt: item.createdAt };
@@ -114,7 +118,7 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
     );
     useEffect(
         function (): void {
-            axios.get('http://192.168.1.2:8500/api/v1/authorized_users').then(function ({ data }): void {
+            axios.get(HTTP_REST_ENDPOINTS.AuthorizedUsers).then(function ({ data }): void {
                 setAuthorizedUsers(() =>
                     data.map(function (item: AuthorizedUserDB): AuthorizedUser {
                         return { id: item._id, profileImage: item.profileImage, name: item.name, createdAt: item.createdAt };
