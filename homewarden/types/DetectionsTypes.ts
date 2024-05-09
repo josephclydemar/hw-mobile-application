@@ -5,13 +5,18 @@ enum EnumDetectionsManipulate {
 
 type Detection = {
     id: string;
-    recordedVideo: string;
+    videoId: string;
     createdAt: string;
 };
 
-type CurrentDayDetectionsManipulateAction = {
+type DetectionsManipulateAction = {
     id: string;
     actionType: EnumDetectionsManipulate;
+};
+
+type DetectionsContextType = {
+    detections: Detection[];
+    setDetections: React.Dispatch<React.SetStateAction<Detection[]>>;
 };
 
 type CurrentDayDetectionsContextType = {
@@ -19,5 +24,12 @@ type CurrentDayDetectionsContextType = {
     setCurrentDayDetections: React.Dispatch<React.SetStateAction<Detection[]>>;
 };
 
+type ToGetDayDetectionsContextType = {
+    toGetDayDetections: string[];
+    setToGetDayDetections: React.Dispatch<React.SetStateAction<string[]>>;
+    confirmGet: boolean;
+    setConfirmGet: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export { EnumDetectionsManipulate };
-export type { Detection, CurrentDayDetectionsManipulateAction, CurrentDayDetectionsContextType };
+export type { Detection, DetectionsManipulateAction, DetectionsContextType, CurrentDayDetectionsContextType, ToGetDayDetectionsContextType };
