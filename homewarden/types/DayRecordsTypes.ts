@@ -7,7 +7,7 @@ enum EnumDayRecordsManipulate {
 
 type DayRecord = {
     id: string;
-    detections: Detection[];
+    detections: string[];
     createdAt: string;
 };
 
@@ -21,5 +21,16 @@ type DayRecordContextType = {
     setDayRecords: React.Dispatch<React.SetStateAction<DayRecord[]>>;
 };
 
+type SelectedDayRecord = {
+    id: string;
+    detections: Detection[];
+    createdAt: string;
+};
+
+type SelectedDayRecordContextType = {
+    selectedDayRecord: SelectedDayRecord;
+    setSelectedDayRecord: React.Dispatch<React.SetStateAction<SelectedDayRecord>>;
+};
+
 export { EnumDayRecordsManipulate };
-export type { DayRecord, DayRecordsManipulateAction, DayRecordContextType };
+export type { DayRecord, DayRecordsManipulateAction, DayRecordContextType, SelectedDayRecord, SelectedDayRecordContextType };
