@@ -30,8 +30,6 @@ export default function AuthorizedUserItem({ id, profileImage, name, createdAt }
             <View
                 style={{
                     paddingLeft: 2,
-                    // borderRadius: 35,
-                    // backgroundColor: '#fff',
                 }}>
                 {profileImage === null || profileImage === undefined ? (
                     <FontAwesome5Icon name="user" size={50} color="#000" />
