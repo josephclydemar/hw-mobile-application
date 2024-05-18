@@ -119,7 +119,10 @@ export default function ContextsWrapper({ children }: PropsWithChildren) {
                 Alert.alert('Detection Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
             });
             WebSocketConnection.on(WEBSOCKET_INBOUND_EVENTS.FromServerDoorbellPress, function (data: string): void {
-                Alert.alert('Detection Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
+                Alert.alert('Doorbell Press Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
+            });
+            WebSocketConnection.on('from_server_user_entered', function (data: string): void {
+                Alert.alert('User Entered Notification', data, [{ text: 'Close', onPress: () => console.log('Close Notif Alert') }]);
             });
             WebSocketConnection.on(WEBSOCKET_INBOUND_EVENTS.FromServerNumberOfFacesDetected, function (data: number): void {
                 setNumberOfFacesDetected(() => data);

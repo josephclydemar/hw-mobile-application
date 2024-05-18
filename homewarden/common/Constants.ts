@@ -1,5 +1,5 @@
-const SERVER_HOSTNAME = 'http://192.168.1.2:8500';
-const LIVE_STREAM_HOSTNAME = 'http://192.168.1.18:8080/video_feed';
+const SERVER_HOSTNAME = 'http://192.168.69.171:8500';
+const LIVE_STREAM_HOSTNAME = 'http://192.168.69.96:8080/video_feed';
 
 const WEBSOCKET_INBOUND_EVENTS = {
     AddedNewDetection: 'update_current_day_detection',
