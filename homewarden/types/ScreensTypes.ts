@@ -6,7 +6,7 @@ type CurrentScreen =
     | 'selected-authorized-user-screen'
     | 'selected-day-records-screen'
     | 'selected-detection-screen'
-    | 'login-screen';
+    | 'manual-commands-screen';
 
 type CurrentScreenContextType = {
     currentScreen: CurrentScreen;
@@ -21,7 +21,7 @@ type PreviousScreen =
     | 'selected-authorized-user-screen'
     | 'selected-day-records-screen'
     | 'selected-detection-screen'
-    | 'login-screen';
+    | 'manual-commands-screen';
 
 type PreviousScreenContextType = {
     previousScreen: PreviousScreen;

@@ -3,16 +3,25 @@ import { View, Text, Image, Button } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 import CurrentScreenContext from '../contexts/CurrentScreenContext';
+import PreviousScreenContext from '../contexts/PreviousScreenContext';
+import SelectedAuthorizedUserContext from '../contexts/SelectedAuthorizedUserContext';
 
-import { AuthorizedUser } from '../types/UsersTypes';
+import { AuthorizedUser, SelectedAuthorizedUserContextType } from '../types/UsersTypes';
 import { CurrentScreenContextType } from '../types/ScreensTypes';
+import { PreviousScreenContextType } from '../types/ScreensTypes';
 
 export default function AuthorizedUserItem({ id, profileImage, name, createdAt }: AuthorizedUser) {
-    const { setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
+    const { currentScreen, setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
+    const { setPreviousScreen } = useContext<PreviousScreenContextType>(PreviousScreenContext as Context<PreviousScreenContextType>);
+    const { setSelectedAuthorizedUser } = useContext<SelectedAuthorizedUserContextType>(
+        SelectedAuthorizedUserContext as Context<SelectedAuthorizedUserContextType>,
+    );
     return (
         <View
             style={{
-                backgroundColor: '#ccc',
+                backgroundColor: '#F8F4FB',
+                borderColor: '#888',
+                borderWidth: 1,
                 margin: 5,
                 padding: 10,
                 borderRadius: 10,
@@ -45,20 +54,24 @@ export default function AuthorizedUserItem({ id, profileImage, name, createdAt }
                 style={{
                     marginLeft: 15,
                 }}>
-                {/* <Text>{profileImage}</Text> */}
                 <Text style={{ fontSize: 16, color: '#000', fontWeight: 'bold' }}>{name}</Text>
-                {/* <Text style={{ fontSize: 14 }}>ID: {id}</Text> */}
-                <Text>Created At: {createdAt}</Text>
+                <Text>{new Date(createdAt).toUTCString()}</Text>
                 <View
                     style={{
                         marginTop: 10,
                     }}>
                     <Button
-                        title="See Info"
-                        color="#505"
+                        title="See Entries"
+                        color="#04062A"
                         onPress={function (): void {
-                            // console.log('Id', id);
-                            setCurrentScreen('selected-authorized-user-screen');
+                            setPreviousScreen(() => currentScreen);
+                            setCurrentScreen(() => 'selected-authorized-user-screen');
+                            setSelectedAuthorizedUser({
+                                id: id,
+                                profileImage: profileImage,
+                                name: name,
+                                createdAt: createdAt,
+                            });
                         }}
                     />
                 </View>

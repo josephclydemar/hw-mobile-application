@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, StatusBar, View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import { CurrentScreenContextProvider } from './contexts/CurrentScreenContext';
-import Root from './Root';
+import { PreviousScreenContextProvider } from './contexts/PreviousScreenContext';
+
+import Main from './Main';
 
 export default function App(): React.JSX.Element {
     const isDarkMode = useColorScheme() === 'dark';
@@ -16,7 +18,9 @@ export default function App(): React.JSX.Element {
         <SafeAreaView style={backgroundStyle}>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
             <CurrentScreenContextProvider>
-                <Root />
+                <PreviousScreenContextProvider>
+                    <Main />
+                </PreviousScreenContextProvider>
             </CurrentScreenContextProvider>
         </SafeAreaView>
     );

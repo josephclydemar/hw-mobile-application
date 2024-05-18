@@ -6,6 +6,8 @@ enum EnumDetectionsManipulate {
 type Detection = {
     id: string;
     videoId: string;
+    videoFormat: string;
+    videoDurationSeconds: string;
     createdAt: string;
 };
 

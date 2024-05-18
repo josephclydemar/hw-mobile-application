@@ -1,6 +1,6 @@
 type CurrentPlayingVideoContextType = {
-    currentPlayingVideo: string;
-    setCurrentPlayingVideo: React.Dispatch<React.SetStateAction<string>>;
+    currentPlayingVideo: [string, string];
+    setCurrentPlayingVideo: React.Dispatch<React.SetStateAction<[string, string]>>;
 };
 
 export type { CurrentPlayingVideoContextType };

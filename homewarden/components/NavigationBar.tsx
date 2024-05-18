@@ -1,11 +1,12 @@
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { CurrentScreen } from '../types/ScreensTypes';
 
 const styles = StyleSheet.create({
     navBarContainer: {
-        backgroundColor: '#505',
+        backgroundColor: '#2d084e',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -20,16 +21,6 @@ type NavigationBarProps = {
 export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) {
     return (
         <View style={styles.navBarContainer}>
-            <TouchableOpacity
-                onPress={function (): void {
-                    // Alert.alert('You pressed Home Icon', 'Hello, this is the Home icon...', [
-                    // { text: 'Close Haha..', onPress: () => console.log('Home Icon Alert Closed..') },
-                    // ]);
-                    setCurrentScreen('home-screen');
-                    console.log('Home Icon');
-                }}>
-                <IoniconsIcon name="home" size={50} color="#fff" />
-            </TouchableOpacity>
             <TouchableOpacity
                 onPress={function (): void {
                     // Alert.alert('You pressed Folder Icon', 'Hello, this is the Folder icon...', [
@@ -52,14 +43,32 @@ export default function NavigationBar({ setCurrentScreen }: NavigationBarProps) 
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={function (): void {
-                    // Alert.alert('You pressed Users Icon', 'Hello, this is the Users icon...', [
-                    // { text: 'Close Haha..', onPress: () => console.log('Users Icon Alert Closed..') },
+                    // Alert.alert('You pressed Home Icon', 'Hello, this is the Home icon...', [
+                    // { text: 'Close Haha..', onPress: () => console.log('Home Icon Alert Closed..') },
                     // ]);
-                    setCurrentScreen('add-new-authorized-users-screen');
-                    console.log('Add User Icon');
+                    setCurrentScreen('home-screen');
+                    console.log('Home Icon');
                 }}>
-                <IoniconsIcon name="person-add-sharp" size={50} color="#fff" />
+                <IoniconsIcon name="home" size={50} color="#fff" />
             </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={function (): void {
+                    setCurrentScreen(() => 'manual-commands-screen');
+                }}>
+                <MaterialIconsIcon name="keyboard-command" size={50} color="#fff" />
+            </TouchableOpacity>
+            {/* <TouchableOpacity
+                onPress={function (): void {
+                    Alert.alert('Confirm Logout?', 'Please confirm if you want to Logout...', [
+                        { text: 'Confirm', onPress: () => console.log('Logout Icon Alert Confirmed..') },
+                        { text: 'Cancel', onPress: () => console.log('Logout Icon Alert Cancelled..') },
+                    ]);
+                    // Alert.prompt('HEllo')
+                    console.log('LogOut Icon');
+                }}>
+                <MaterialIconsIcon name="logout" size={50} color="#fff" />
+            </TouchableOpacity> */}
         </View>
     );
 }

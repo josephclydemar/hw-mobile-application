@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, Context } from 'react';
-import { View, Text, TextInput, Button, Image } from 'react-native';
-
+import { View, Text, TextInput, Button, Image, Alert } from 'react-native';
 
 // contexts
 import CurrentScreenContext from '../contexts/CurrentScreenContext';
@@ -11,10 +10,11 @@ import { AuthorizedUser, AuthorizedUserContextType, ToAddNewAuthorizedUserContex
 import { CurrentScreenContextType } from '../types/ScreensTypes';
 
 import Section from '../components/Section';
+import BackToPreviousScreen from '../components/BackToPreviousScreen';
 
 export default function AddNewAuthorizedUserScreen() {
     const { setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
-    const { setInputName, setConfirmAdd } = useContext<ToAddNewAuthorizedUserContextType>(
+    const { inputName, setInputName, setConfirmAdd } = useContext<ToAddNewAuthorizedUserContextType>(
         ToAddNewAuthorizedUserContext as Context<ToAddNewAuthorizedUserContextType>,
     );
     const { authorizedUsers } = useContext<AuthorizedUserContextType>(AuthorizedUsersContext as Context<AuthorizedUserContextType>);
@@ -30,6 +30,7 @@ export default function AddNewAuthorizedUserScreen() {
     );
     return (
         <>
+            <BackToPreviousScreen />
             <Section title="Add New Authorized User">
                 <View
                     style={{
@@ -53,8 +54,28 @@ export default function AddNewAuthorizedUserScreen() {
                         title="Confirm Add"
                         color="#505"
                         onPress={function (): void {
-                            setConfirmAdd(() => true);
-                            setCurrentScreen(() => 'authorized-users-screen');
+                            if (inputName !== '') {
+                                Alert.alert('Confirm Add New Authorized User?', 'Please confirm if you want to add a new authorized user...', [
+                                    {
+                                        text: 'Confirm',
+                                        onPress: function (): void {
+                                            console.log('Confirmed Add New Authorized User');
+                                            setConfirmAdd(() => true);
+                                            setCurrentScreen(() => 'authorized-users-screen');
+                                        },
+                                    },
+                                    {
+                                        text: 'Cancel',
+                                        onPress: function (): void {
+                                            console.log('Cancelled Add New Authorized User');
+                                        },
+                                    },
+                                ]);
+                            } else {
+                                Alert.alert('Empty Field Alert', 'Please enter a name in the field.', [
+                                    { text: 'Close', onPress: () => console.log('Close Notif Alert') },
+                                ]);
+                            }
                         }}
                     />
                 </View>
@@ -78,11 +99,14 @@ export default function AddNewAuthorizedUserScreen() {
                         />
                     </View>
                     <View>
-                        <Text style={{
-                            color: '#000',
-                            fontSize: 30,
-                            fontWeight: 'bold',
-                        }}>{recentlyAddedAuthorizedUser?.name}</Text>
+                        <Text
+                            style={{
+                                color: '#000',
+                                fontSize: 30,
+                                fontWeight: 'bold',
+                            }}>
+                            {recentlyAddedAuthorizedUser?.name}
+                        </Text>
                     </View>
                 </View>
             </Section>

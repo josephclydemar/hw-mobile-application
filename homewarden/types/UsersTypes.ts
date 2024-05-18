@@ -22,6 +22,18 @@ type AuthorizedUserContextType = {
     setAuthorizedUsers: React.Dispatch<React.SetStateAction<AuthorizedUser[]>>;
 };
 
+type SelectedAuthorizedUser = {
+    id: string;
+    profileImage: string | null | undefined;
+    name: string;
+    createdAt: string;
+};
+
+type SelectedAuthorizedUserContextType = {
+    selectedAuthorizedUser: SelectedAuthorizedUser;
+    setSelectedAuthorizedUser: React.Dispatch<React.SetStateAction<SelectedAuthorizedUser>>;
+};
+
 type ToAddNewAuthorizedUserContextType = {
     inputName: string;
     setInputName: React.Dispatch<React.SetStateAction<string>>;
@@ -30,4 +42,11 @@ type ToAddNewAuthorizedUserContextType = {
 };
 
 export { EnumAuthorizedUsersManipulate };
-export type { AuthorizedUser, AuthorizedUsersManipulateAction, AuthorizedUserContextType, ToAddNewAuthorizedUserContextType };
+export type {
+    AuthorizedUser,
+    AuthorizedUsersManipulateAction,
+    AuthorizedUserContextType,
+    SelectedAuthorizedUser,
+    SelectedAuthorizedUserContextType,
+    ToAddNewAuthorizedUserContextType,
+};

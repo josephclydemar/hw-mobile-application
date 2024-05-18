@@ -1,18 +1,18 @@
 import { PropsWithChildren } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-type SectionProps = PropsWithChildren<{
+type SectionMiniProps = PropsWithChildren<{
     title: string;
 }>;
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        paddingTop: 32,
+        paddingTop: 25,
         // backgroundColor: '#fff',
-        paddingHorizontal: 24,
+        paddingHorizontal: 15,
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: '600',
         textAlign: 'center',
         color: '#000',
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function Section({ children, title }: SectionProps): React.JSX.Element {
+export default function SectionMini({ title, children }: SectionMiniProps) {
     return (
         <View style={styles.sectionContainer}>
             <Text style={[styles.sectionTitle]}>{title}</Text>

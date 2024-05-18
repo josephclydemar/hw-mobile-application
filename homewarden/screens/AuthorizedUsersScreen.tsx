@@ -1,14 +1,21 @@
 import { Context, useContext, useEffect, useState } from 'react';
 import { View, FlatList, Text, TextInput } from 'react-native';
+// import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
+import CurrentScreenContext from '../contexts/CurrentScreenContext';
+import PreviousScreenContext from '../contexts/PreviousScreenContext';
 import AuthorizedUsersContext from '../contexts/AuthorizedUsersContext';
 
 import Section from '../components/Section';
 import AuthorizedUserItem from '../components/AuthorizedUserItem';
 
+import { CurrentScreenContextType } from '../types/ScreensTypes';
+import { PreviousScreenContextType } from '../types/ScreensTypes';
 import { AuthorizedUser, AuthorizedUserContextType } from '../types/UsersTypes';
 
 export default function AuthorizedUsersScreen() {
+    const { currentScreen, setCurrentScreen } = useContext<CurrentScreenContextType>(CurrentScreenContext as Context<CurrentScreenContextType>);
+    const { setPreviousScreen } = useContext<PreviousScreenContextType>(PreviousScreenContext as Context<PreviousScreenContextType>);
     const { authorizedUsers } = useContext<AuthorizedUserContextType>(AuthorizedUsersContext as Context<AuthorizedUserContextType>);
     const [authorizedUsersToRender, setAuthorizedUsersToRender] = useState<AuthorizedUser[]>(authorizedUsers);
     const [search, setSearch] = useState<string>('');
@@ -26,7 +33,7 @@ export default function AuthorizedUsersScreen() {
 
     return (
         <>
-            <Section title="Authorized Users Screen">
+            <Section title="Authorized Users">
                 <View
                     style={{
                         marginTop: 10,
@@ -40,7 +47,7 @@ export default function AuthorizedUsersScreen() {
                                 fontSize: 15,
                                 paddingLeft: 15,
                             }}
-                            placeholder="Search by name for an Authorized User"
+                            placeholder="Search for Authorized Users by Name"
                             onChangeText={function (data: string): void {
                                 setSearch(() => data);
                                 // console.log(authorizedUsers);
@@ -55,7 +62,7 @@ export default function AuthorizedUsersScreen() {
                     </View>
                     <FlatList
                         style={{
-                            height: 400,
+                            height: 380,
                         }}
                         keyExtractor={function (item: AuthorizedUser) {
                             return item.id;
